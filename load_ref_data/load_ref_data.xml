@@ -1,0 +1,42 @@
+<tool id="load_reference_datasets" name="Load built-in reference data to history" version="0.0.1" >
+<command><![CDATA[
+#if $input_source.table_type_selector == "gff":
+    out_name=\$(sed 's/ /_/g' <<< "$input_source.gff.fields.name");
+    cp $input_source.gff.fields.path \$out_name.gff;
+#else:
+    out_name=\$(sed 's/ /_/g' <<< "$input_source.fasta.fields.name");
+    cp $input_source.fasta.fields.path \$out_name.fasta;
+#end if
+    ]]></command>
+    <inputs>
+        <conditional name="input_source">
+           <param name="table_type_selector" type="select" label="Select the type of file you want to access">
+               <option value="gff" selected='True'>Annotations (GFF/GTF) files</option>
+               <option value="fasta">FASTA Files (Genomes files / cDNA / etc)</option>
+            </param>
+            <when value="full">
+                 <param name="gff" type="select" label="Select the annotation file from the list" help="If your genome of interest is not listed contact the Galaxy admin">
+                     <options from_data_table="all_gff"/>
+                 </param>
+            </when>
+            <when value="fasta">
+                 <param name="fasta" type="select" label="Select the FASTA file from the list" help="if your genome of interest is not listed contact the Galaxy admin">
+                     <options from_data_table="all_fasta"/>
+                 </param>
+
+            </when>
+        </conditional>
+    </inputs>
+    <outputs>
+        <data name="copied_file" label="">
+        <discover_datasets pattern="__designation_and_ext__" visible="true" />
+        </data>
+   </outputs>
+    <help>
+**What it does**
+
+This tool allows loading different built-in datasets into your history using the same data tables access that any other tool uses.
+
+
+    </help>
+</tool>
