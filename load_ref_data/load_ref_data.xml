@@ -1,4 +1,4 @@
-<tool id="load_reference_datasets" name="Load built-in reference data to history" version="0.0.1" >
+<tool id="load_reference_datasets" name="Load built-in reference data to history" version="0.0.2" >
 <command><![CDATA[
 #if $input_source.table_type_selector == "gff_file":
     out_name=\$(sed 's/ /_/g' <<< "$input_source.gff.fields.name");
