@@ -11,7 +11,7 @@
 
     <command><![CDATA[
 if [ -z "\$GALAXY_MEMORY_MB" ] ; then
-    GALAXY_MEMORY_BYTES=31000000000 ;
+    GALAXY_MEMORY_BYTES=310000000000 ;
 else
     GALAXY_MEMORY_BYTES=\$((GALAXY_MEMORY_MB * 1000000)) ;
 fi ;
@@ -28,8 +28,8 @@ STAR
 --genomeDir '${target_directory}'
 --limitGenomeGenerateRAM \${GALAXY_MEMORY_BYTES}
 #if $GTFconditional.GTFselect == "withGTF":
-    #if $GTFconditional.GTF_source_conditional == "builtin_gff":
-        --sjdbGTFfile '${GTFconditional.GTF_source_conditional.all_gff_source.path}'
+    #if $GTFconditional.GTF_source_conditional.GTF_source_select == "builtin_gff":
+        --sjdbGTFfile '${GTFconditional.GTF_source_conditional.all_gff_source.fields.path}'
     #else
         --sjdbGTFfile '${GTFconditional.GTF_source_conditional.sjdbGTFfile}'
     #end if
@@ -76,7 +76,7 @@ python '${__tool_directory__}/rna_star_index_builder.py'
                         <option value="external_gff">Use an external GTF/GFF</option>
                     </param>
                     <when value="builtin_gff">
-                        <param name="all_gff_source" type="select" label="Source FASTA Sequence">
+                        <param name="all_gff_source" type="select" label="Select source GFF/GTF File">
                             <options from_data_table="all_gff"/>
                         </param>
                     </when>
