@@ -2,9 +2,11 @@
 <command><![CDATA[
 #if $input_source.table_type_selector == "gff_file":
     out_name=\$(sed 's/ /_/g' <<< "$input_source.gff.fields.name");
+    out_name=\$(sed 's/\//_/g' <<< \$out_name);
     cp $input_source.gff.fields.path \$out_name.gff3;
 #else:
     out_name=\$(sed 's/ /_/g' <<< "$input_source.fasta.fields.name");
+    out_name=\$(sed 's/\//_/g' <<< \$out_name);
     cp $input_source.fasta.fields.path \$out_name.fasta;
 #end if
     ]]></command>
@@ -36,7 +38,6 @@
 **What it does**
 
 This tool allows loading different built-in datasets into your history using the same data tables access that any other tool uses.
-
 
     </help>
 </tool>
